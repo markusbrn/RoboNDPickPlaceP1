@@ -132,9 +132,15 @@ class IK_Service:
                 R_3_G = R_3_0 * R_0_G
             
                 #5.) Compute q4-6
-                theta4 = atan2(R_3_G[2,2],-R_3_G[0,2])
                 theta5 = atan2(sqrt(R_3_G[2,2]**2+R_3_G[0,2]**2),R_3_G[1,2])
-                theta6 = atan2(-R_3_G[1,1],R_3_G[1,0])
+                
+                #handle multiple solutions (I found this solution in a slack posting :-)
+                if sin(theta5) < 0:
+                    theta4 = atan2(-R_3_G[2,2],R_3_G[0,2])
+                    theta6 = atan2(R_3_G[1,1],-R_3_G[1,0])
+                else:
+                    theta4 = atan2(R_3_G[2,2],-R_3_G[0,2])
+                    theta6 = atan2(-R_3_G[1,1],R_3_G[1,0])
 
                 # Populate response for the IK request
                 # In the next line replace theta1,theta2...,theta6 by your joint angle variables

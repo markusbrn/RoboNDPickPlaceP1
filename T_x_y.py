@@ -19,10 +19,28 @@ def Matrix_DH(alpha, a, d, q):
                    [sin(q)*sin(alpha), cos(q)*sin(alpha),  cos(alpha),  cos(alpha)*d],
                    [                0,                 0,           0,             1]])
 # Create individual transformation matrices
-T_3_4 = Matrix_DH(alpha3, a3, d4, q4).subs(s)
-T_4_5 = Matrix_DH(alpha4, a4, d5, q5).subs(s)
-T_5_6 = Matrix_DH(alpha5, a5, d6, q6).subs(s)
-T_6_G = Matrix_DH(alpha6, a6, dG, qG).subs(s)
+T_0_1 = simplify(Matrix_DH(alpha0, a0, d1, q1).subs(s))
+#print(T_0_1)
+T_1_2 = simplify(Matrix_DH(alpha1, a1, d2, q2).subs(s))
+#print(T_1_2)
+T_2_3 = simplify(Matrix_DH(alpha2, a2, d3, q3).subs(s))
+#print(T_2_3)
+T_3_4 = simplify(Matrix_DH(alpha3, a3, d4, q4).subs(s))
+#print(T_3_4)
+T_4_5 = simplify(Matrix_DH(alpha4, a4, d5, q5).subs(s))
+#print(T_4_5)
+T_5_6 = simplify(Matrix_DH(alpha5, a5, d6, q6).subs(s))
+#print(T_5_6)
+T_6_G = simplify(Matrix_DH(alpha6, a6, dG, qG).subs(s))
+#print(T_6_G)
+T_0_G = T_0_1*T_1_2*T_2_3*T_3_4*T_4_5*T_5_6*T_6_G
+#print(pretty(simplify(T_0_G)))
 
-R_3_G = simplify(T_3_4[0:3,0:3] * T_4_5[0:3,0:3] * T_5_6[0:3,0:3] * T_6_G[0:3,0:3])
-print(R_3_G)
+R_3_G = pretty(simplify(T_3_4[0:3,0:3] * T_4_5[0:3,0:3] * T_5_6[0:3,0:3] * T_6_G[0:3,0:3]))
+#print(R_3_G)
+
+R_4_G = pretty(simplify(T_4_5[0:3,0:3] * T_5_6[0:3,0:3] * T_6_G[0:3,0:3]))
+print(R_4_G)
+
+R_5_G = pretty(simplify(T_5_6[0:3,0:3] * T_6_G[0:3,0:3]))
+print(R_5_G)
